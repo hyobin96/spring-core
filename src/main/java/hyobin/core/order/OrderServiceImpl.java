@@ -1,0 +1,21 @@
+package hyobin.core.order;
+
+import hyobin.core.discount.DiscountPolicy;
+import hyobin.core.discount.FixDiscountPolicy;
+import hyobin.core.member.Member;
+import hyobin.core.member.MemberRepository;
+import hyobin.core.member.MemoryMemberRepository;
+
+public class OrderServiceImpl implements OrderService {
+
+    private final MemberRepository memberRepository = new MemoryMemberRepository();
+    private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+
+    @Override
+    public Order createOrder(Long memberId, String itemName, int itemPrice) {
+        Member member = memberRepository.findById(memberId);
+        int discountPrice = discountPolicy.discount(member, itemPrice);
+
+        return new Order(memberId, itemName, itemPrice, discountPrice);
+    }
+}
