@@ -2,7 +2,10 @@ package hyobin.core.discount;
 
 import hyobin.core.member.Grade;
 import hyobin.core.member.Member;
+import org.springframework.stereotype.Component;
 
+// 컴포넌트 스캔 방식의 경우 붙여줘야 함
+@Component
 public class RateDiscountPolicy implements DiscountPolicy {
 
     private int discountPercent = 10;
